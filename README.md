@@ -4,6 +4,12 @@ A small, clean CRUD application built with **PHP (CodeIgniter 4)** and **MySQL**
 
 **Fields:** `id`, `name`, `role` — Create, Read, Update, Delete, all on one page via AJAX (no page reloads).
 
+## Why this project exists
+
+This project is a simple yet powerful showcase of my DevOps and cloud engineering mindset. I built it as a basic single-page employee manager application to demonstrate a complete AWS deployment story — from networking and availability to load balancing, security, and scalability. The goal is to highlight how even a small app can be used to illustrate real-world AWS architecture patterns such as multi-AZ design, subnets, application load balancers, target groups, and security groups.
+
+> 💡 AI highlight: This project was vibe-coded with just a single prompt, which also reflects my AI-assisted development skills. It showcases how I can quickly turn an idea into a working application while keeping the focus on architecture, automation, and cloud-native thinking.
+
 ---
 
 ## ✨ Features
