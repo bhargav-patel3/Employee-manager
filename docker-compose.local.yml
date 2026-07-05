@@ -1,0 +1,49 @@
+
+# Use this file for local development/testing with a MySQL container
+# instead of AWS RDS. Good for testing the whole stack on your laptop
+# before pointing it at your real AWS RDS endpoint.
+#
+# Usage:
+#   docker-compose -f docker-compose.local.yml up -d --build
+
+services:
+  app:
+    build: .
+    container_name: employee-app-local
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      CI_ENVIRONMENT: development
+      app.baseURL: "http://localhost:8080/"
+      database.default.hostname: "db"
+      database.default.database: "employee_db"
+      database.default.username: "ciuser"
+      database.default.password: "cipass123"
+      database.default.DBDriver: "MySQLi"
+      database.default.port: "3306"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: employee-db-local
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123
+      MYSQL_DATABASE: employee_db
+      MYSQL_USER: ciuser
+      MYSQL_PASSWORD: cipass123
+    ports:
+      - "3307:3306"   # host:container - avoids clashing with any local MySQL on 3306
+    volumes:
+      - employee_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpass123"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  employee_db_data:

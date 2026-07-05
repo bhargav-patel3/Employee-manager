@@ -1,0 +1,26 @@
+
+# Use this file when your MySQL database is an AWS RDS instance (managed DB).
+# The app container connects out to RDS over the network - no local db service needed.
+#
+# Usage:
+#   1. Fill in your RDS details in .env (or in the environment section below)
+#   2. docker-compose -f docker-compose.yml up -d --build
+
+services:
+  app:
+    build: .
+    container_name: employee-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      CI_ENVIRONMENT: production
+      app.baseURL: "http://localhost:8080/"
+      database.default.hostname: "${DB_HOST}"
+      database.default.database: "${DB_NAME}"
+      database.default.username: "${DB_USER}"
+      database.default.password: "${DB_PASS}"
+      database.default.DBDriver: "MySQLi"
+      database.default.port: "3306"
+    volumes:
+      - ./app/Views:/var/www/html/app/Views   # optional: live-edit views without rebuilding

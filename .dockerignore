@@ -1,0 +1,14 @@
+.git
+.gitignore
+writable/cache/*
+writable/logs/*
+writable/session/*
+writable/debugbar/*
+!writable/cache/index.html
+!writable/logs/index.html
+!writable/session/index.html
+!writable/debugbar/index.html
+tests
+builds
+*.md
+.env.example
